@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<script>
+		
+//HÄR KAN DU FYLLA I INNEHÅLLET
+
+var content = [
+// Rad 1
+["Rubrik"],
+
+//Rad1
+["Kolumn-1", "Kolumn-2" ],
+
+
+// Rad 2
+[ "Kolumn-1", "Kolumn-2" ],
+
+
+// Rad X - kopiera och ta bort // i början på nedanstående rad för fler rader
+// [ "Kolumn-1", "Kolumn-2" ],
+
+// Sista raden
+["Kolumn-1", "Kolumn-2"]
+
+]
+		
+
+		</script>		
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0">
+		<style>
+			@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+			body{
+				margin:10px;
+			}
+			
+			table{
+				border-collapse: collapse;
+				width: 100%;
+				font-family: 'Open Sans', sans-serif;
+			}
+
+			tr:nth-child(1) > td {
+				font-size:1.5em;
+				line-height: 1.3em;
+			}
+			tr:nth-child(odd) > td{
+				background-color: #f0efed;
+			}
+
+			td{
+				padding:6px;
+				padding-left:10px;
+				font-size: 0.9em;
+				font-weight: 400;
+			}
+			td:nth-child(1){
+				font-weight: bold;
+			}
+			td:nth-child(1){
+				border:none;
+				width:120px;
+			}
+
+		</style>
+	</head>
+	<body>
+		<table id="tb">
+		</table>
+
+
+		<script>
+		var _module = function(){
+		
+			var table = document.getElementById("tb");
+			var nrOfColumns = 0;
+			for (var row = 0; row<content.length;row++){
+				var cells = content[row].length;
+				if (cells > nrOfColumns)
+					nrOfColumns = cells;
+			}
+			for (var i=0; i<content.length; i++){
+				table.appendChild(createRow(i));
+			}
+
+			function createRow(i){
+				var rowContent 	= content[i],
+					row 		=	document.createElement("tr");
+				for (var col=0;col<nrOfColumns;col++)
+					createCell(col);
+
+				function createCell(col){
+					var td = document.createElement("td");
+					innerText = rowContent[col]
+					if(innerText)
+						td.innerText = innerText;
+					row.appendChild(td);
+				}
+				return row;
+			}
+		};
+		_module();
+		</script>
+	</body>
+</html>
