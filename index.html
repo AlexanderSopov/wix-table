@@ -1,43 +1,139 @@
 <html>
 	<head>
 		<script>
-		
+
 //HÄR KAN DU FYLLA I INNEHÅLLET
 
+//Beskrivning
+
+var description = [
+	{
+		h: "HELT NYTT KAMERASYSTEM",
+		p: "En helt ny 12 MP-kamera med en bländare på f/1,8 för suveräna bilder och video i 4K, även i svagt ljus. Har optisk bildstabilisering och True Tone-blixt med Quad-LED och Live Photos. iPhone 7 har även en 7 MP FaceTime HD-kamera med Retina Flash."
+	},
+	{
+		h: "DEN MEST FÄRGRIKA IPHONE-SKÄRMEN NÅGONSIN",
+		p: "Har en 4,7-tums Retina HD-skärm med stort färgomfång som är klarare och mer färgrik än någon iPhone tidigare. Skärmen har en upplösning på 1 334 x 750 pixlar."
+	},
+	{
+		h: "DUBBELT SÅ SNABB PRESTANDA",
+		p: "iPhone 7 har ett nytt A10 Fusion-chip för upp till dubbelt så snabb prestanda som till exempel iPhone 6. Har inbäddad M10-rörelse-coprocessor"
+	}
+
+];
+
+
+
+// Tabell
 var content = [
-// Rad 1
-["Rubrik"],
+	// Rubrik
+	["Specifikationer"],
 
-//Rad1
-["Kolumn-1", "Kolumn-2" ],
+	//Rad1
+	["Installation", "Monteras på en plan yta med den medföljande monteringsplåten eller på en stolpe med de medföljande monteringsbanden." ],
 
+	// Rad 2
+	[ "Lagring av statistik", "Gruppering i intervall om 60 eller 15 minuter." ],
 
-// Rad 2
-[ "Kolumn-1", "Kolumn-2" ],
+	[ "Minne", "Vid lagring av data i intervall om 15 minuter räcker minnet i 11 månader. Vid lagring av data i intervall om 60 minuter räcker minnet i 21 månader." ],
 
+	[ "Batteriets livslängd", "10 år" ],
 
-// Rad X - kopiera och ta bort // i början på nedanstående rad för fler rader
-// [ "Kolumn-1", "Kolumn-2" ],
+	[ "Kalibrering/ justering", "Automatisk underhållsfri kalibrering av sensorn." ],
 
-// Sista raden
-["Kolumn-1", "Kolumn-2"]
+	[ "Riktningsbestämd räkning", "Som tillval." ],
+
+	[ "Detektionsräckvidd", "1 meter, 4 meter eller 15 meter." ],
+
+	[ "Kapslingklass", "IP 66." ],
+
+	[ "Temperaturområde", "-40 °C till +50 °C." ],
+
+	[ "Vikt", "2,6 kg." ],
+
+	[ "Mått", "23 x 10 x 18 cm." ],
+
+	[ "Material", "Stötsäker polyuretan." ],
+
+	[ "Färg", "Grå - RAL 7012 (andra RAL-färger finns som tillägg)." ],
+
+	[ "Mått monteringsplåt", "22,5 x 17 cm i rostfri plåt." ],
+
+	// Sista raden
+	["Mått monteringsband", "Längd=100cm  / Bredd=13mm i rostfri plåt."]
 
 ]
-		
 
-		</script>		
+
+		</script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0">
 		<style>
 			@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 			body{
 				margin:10px;
+				font-family: 'Open Sans', sans-serif;
 			}
-			
+			/*
+			 *
+			 *	Tabb-menyn
+			 *
+			 */
+			 .tab-container{
+				 width:100%;
+				 margin:0px;
+				 padding:0px;
+				 cursor:pointer;
+			 }
+
+			 .tab{
+				 text-align:center;
+				 margin:0px;
+				 padding:0px;
+				 width:50%;
+				 display:inline-block;
+				 float:left;
+				 border-bottom: 5px solid grey;
+			 }
+
+			 .active {
+				 color: #f79431;
+				 border-color:#f79431;
+				 font-weight: 700;
+			 }
+
+			 .content {
+ 				position:relative;
+ 				top:40px;
+				 width: 100%;
+				 display:none;
+			 }
+			 .content h1:nth-child(1){
+				 margin-top:0px;
+			 }
+			 #description-content h1{
+				 margin-bottom:0px;
+			 }
+			 #description-content p{
+				 margin-top:8px;
+			 }
+
+			 .active-content {
+				 display: inline-block;
+			 }
+			/*
+			 *
+			 *	Beskrivning
+			 *
+			 */
+			/*
+			 *
+			 *	Tabell
+			 *
+			 */
 			table{
 				border-collapse: collapse;
 				width: 100%;
-				font-family: 'Open Sans', sans-serif;
 			}
 
 			tr:nth-child(1) > td {
@@ -65,14 +161,28 @@ var content = [
 		</style>
 	</head>
 	<body>
-		<table id="tb">
+
+		<div class="tab-container">
+			<div id="description" class="tab active" onclick="_tab_module.openTab(this)">
+				<p>
+					Beskrivning
+				</p>
+			</div>
+				<div id="specification" class="tab" onclick="_tab_module.openTab(this)">
+					<p>
+						Specifikationer
+					</p>
+				</div>
+		</div>
+		<div id="description-content" class="content active-content">
+		</div>
+		<table id="specification-content" class="content">
 		</table>
 
-
 		<script>
-		var _module = function(){
-		
-			var table = document.getElementById("tb");
+		var _table_module = function(){
+
+			var table = document.getElementById("specification-content");
 			var nrOfColumns = 0;
 			for (var row = 0; row<content.length;row++){
 				var cells = content[row].length;
@@ -85,7 +195,7 @@ var content = [
 
 			function createRow(i){
 				var rowContent 	= content[i],
-					row 		=	document.createElement("tr");
+						row 				=	document.createElement("tr");
 				for (var col=0;col<nrOfColumns;col++)
 					createCell(col);
 
@@ -99,7 +209,57 @@ var content = [
 				return row;
 			}
 		};
-		_module();
+		_table_module();
+
+		var _tab_module = (function(){
+			var activeTab 		= document.getElementById("description"),
+					activeContent = document.getElementById("description-content");
+
+			var populateDesc = function(){
+				var div = document.getElementById("description-content")
+				for (var i=0; i<description.length; i++){
+					var h1 = document.createElement("h1");
+					h1.innerText = description[i].h;
+					var p = document.createElement("p");
+					p.innerText = description[i].p;
+					div.appendChild(h1);
+					div.appendChild(p);
+				}
+			}
+
+			var openTab = function(el){
+				if (el == activeTab)
+					return;
+				if(activeTab)
+					toggleClass(activeTab, "active");
+				if(activeContent)
+					toggleClass(activeContent, "active-content");
+				activeTab = el;
+				activeContent = document.getElementById(el.id + "-content");
+				toggleClass(activeTab, "active");
+				toggleClass(activeContent, "active-content");
+			}
+
+			var toggleClass = function(el, className){
+				if (el.classList) {
+				  el.classList.toggle(className);
+				} else {
+				  var classes = el.className.split(' ');
+				  var existingIndex = classes.indexOf(className);
+				  if (existingIndex >= 0)
+				    classes.splice(existingIndex, 1);
+				  else
+				    classes.push(className);
+				  el.className = classes.join(' ');
+				}
+			}
+			populateDesc();
+			return {
+				openTab:openTab
+			}
+		})();
+
+
 		</script>
 	</body>
 </html>
