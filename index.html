@@ -8,20 +8,35 @@
 
 var description = [
 	{
-		h: "HELT NYTT KAMERASYSTEM",
-		p: "En helt ny 12 MP-kamera med en bländare på f/1,8 för suveräna bilder och video i 4K, även i svagt ljus. Har optisk bildstabilisering och True Tone-blixt med Quad-LED och Live Photos. iPhone 7 har även en 7 MP FaceTime HD-kamera med Retina Flash."
+		head: "En smart och effektiv lösning",
+		body: [{
+			type: "p",
+			content:"Pyrobox är en unik lösning för att räkna fotgängare i såväl stadsmiljö som på gång- och cykelvägar. Med hjälp av Pyrobox kan man enkelt generera tydliga trender över hur många fotgängare som passerat en specifik plats."}]
 	},
 	{
-		h: "DEN MEST FÄRGRIKA IPHONE-SKÄRMEN NÅGONSIN",
-		p: "Har en 4,7-tums Retina HD-skärm med stort färgomfång som är klarare och mer färgrik än någon iPhone tidigare. Skärmen har en upplösning på 1 334 x 750 pixlar."
-	},
-	{
-		h: "DUBBELT SÅ SNABB PRESTANDA",
-		p: "iPhone 7 har ett nytt A10 Fusion-chip för upp till dubbelt så snabb prestanda som till exempel iPhone 6. Har inbäddad M10-rörelse-coprocessor"
+		head: "Användningsområden",
+		body: [{
+			type:"ul",
+			content:["Flödesmätningar i stadskärnor", "Besöksräkning i samband med olika event", "Besöksräkning på turistmål", "Före- och eftermätningar i samband med ombyggnation m.m."]
+		}]
+	},{
+		head: "Värmekänsliga sensorer",
+		body: [{
+			type:"p",
+			content:"Pyrobox har en eller flera värmekänsliga sensorer som registrerar när en eller flera personer passerar förbi enheten."
+		}]
+	},{
+		head: "Enkelt att följa upp statistik",
+		body: [{
+			type:"p",
+			content:"Både antal som riktning kan spåras och statistiken skickas automatisk iväg till en central server. Statistiken nås enkelt genom webbgränssnittet EcoVisio. Genom att all statistik lagras centralt på en server istället för ute i enheten så säkras all data samtidigt som man som användare kan få del av resultaten direkt."
+		},{
+			type:"p",
+			content:"Pyrobox används idag över hela världen med mycket goda resultat. Tveka inte att kontakta oss om du vill veta mer."
+		}]
 	}
 
 ];
-
 
 
 // Tabell
@@ -112,6 +127,7 @@ var content = [
 				 margin-top:0px;
 			 }
 			 #description-content h1{
+				 font-size: 1.65em;
 				 margin-bottom:0px;
 			 }
 			 #description-content p{
@@ -215,18 +231,6 @@ var content = [
 			var activeTab 		= document.getElementById("description"),
 					activeContent = document.getElementById("description-content");
 
-			var populateDesc = function(){
-				var div = document.getElementById("description-content")
-				for (var i=0; i<description.length; i++){
-					var h1 = document.createElement("h1");
-					h1.innerText = description[i].h;
-					var p = document.createElement("p");
-					p.innerText = description[i].p;
-					div.appendChild(h1);
-					div.appendChild(p);
-				}
-			}
-
 			var openTab = function(el){
 				if (el == activeTab)
 					return;
@@ -252,6 +256,49 @@ var content = [
 				    classes.push(className);
 				  el.className = classes.join(' ');
 				}
+			}
+
+
+
+			var populateDesc = function(){
+				var div = document.getElementById("description-content")
+				for (var i=0; i<description.length; i++){
+					var head = document.createElement("h1");
+					head.innerText = description[i].head;
+					var bodyElements = createBody(description[i].body);
+					div.appendChild(head);
+					for(var el=0; el<bodyElements.length; el++){
+						div.appendChild(bodyElements[el]);
+					}
+				}
+			}
+
+			var createBody = function(body){
+				var _body = [];
+				for(var i=0; i<body.length;i++){
+					if (body[i].type == "p")
+						_body.push(createParagraph(body[i].content));
+					else if (body[i].type == "ul")
+						_body.push(createUL(body[i].content));
+				}
+				return _body;
+			}
+			var createParagraph = function(content){
+				var p = document.createElement("p");
+				p.innerText = content;
+				return p;
+			}
+
+			var createUL = function(content){
+				var ul = document.createElement("ul");
+				console.log(content);
+				for (var i=0; i<content.length;i++){
+					var li = document.createElement("li");
+					li.innerText = content[i];
+					console.log(li);
+					ul.appendChild(li);
+				}
+				return ul;
 			}
 			populateDesc();
 			return {
